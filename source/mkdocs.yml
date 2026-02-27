@@ -2,3 +2,11 @@ site_name: Сайт-портфолио занятия. Аboba. Aboba 13 февр
 
 theme:
     name: dracula
+
+nav:
+    - Главная: index.md
+    - Мой гитхаб (переход): https://github.com/Chichetin/PYLabs/tree/main
+    - Лабораторные:
+        - Lab1: labs/lab1.md
+        - Lab2: labs/lab2.md
+        - Lab3: labs/lab3.md
