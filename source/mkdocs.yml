@@ -4,7 +4,6 @@ theme:
     name: material
     features:
         #- navigation.indexes
-        - navigation.tracking
 nav:
     - Главная: index.md
     - Об авторе: about.md
@@ -15,3 +14,4 @@ nav:
         - Книжный каталог: labs/old/lab3.md
     - Лабораторные этого полугодия:
         - L1. Создание статического сайта: labs/lab1.md
+        - L2. Работа с данными: labs/lab2.md
