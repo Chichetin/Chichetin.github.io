@@ -1,7 +1,11 @@
-site_name: Сайт-портфолио занятия. Аboba. Aboba 13 февраля 2026 (пятница-13)
+site_name: Портфолио Чичерина Александра, студента первого курса.
 
 theme:
-    name: dracula
+    name: material
+    features:
+        - navigation.top
+        - navigation.tabs
+        - navigation.indexes
 
 nav:
     - Главная: index.md
