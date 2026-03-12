@@ -9,8 +9,9 @@ theme:
 
 nav:
     - Главная: index.md
+
     - Мой гитхаб (переход): https://github.com/Chichetin/PYLabs/tree/main
-    - Лабораторные:
-        - Lab1: labs/lab1.md
-        - Lab2: labs/lab2.md
-        - Lab3: labs/lab3.md
+    - Лабораторные прошлого полугодия:
+        - Сравнения скорости факториалов: labs/old/lab1.md
+        - Генератор бинарных деревьев: labs/old/lab2.md
+        - Книжный каталог: labs/old/lab3.md
