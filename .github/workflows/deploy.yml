@@ -1,0 +1,42 @@
+name: Build and Deploy MkDocs
+
+on:
+  push:
+    branches:
+      - main  # Замените на master, если используете старое именование
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+          # Если вы используете плагины, добавьте их установку здесь, например:
+          # pip install mkdocs-minify-plugin
+
+      - name: Build MkDocs
+        # Указываем путь к конфигурации.
+        # По умолчанию билд создаст папку 'site' внутри директории 'source'
+        run: mkdocs build -f source/mkdocs.yml
+
+      - name: Deploy to release branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Путь к собранному статичному сайту
+          publish_dir: ./source/site
+          # Целевая ветка
+          publish_branch: release
