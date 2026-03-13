@@ -22,6 +22,8 @@ workflows:
           - name: publish-to-release-branch
             script:
               - git checkout -b release
+              - git status
               - git add ./docs
+              - git status
               - "git commit -m \"feat: автоматическое обновление сайта\""
               - "git push origin release -f"
