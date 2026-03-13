@@ -1,0 +1,32 @@
+name: build-site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    container: python:3.13-slim
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: build-mkdocs-site
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          cd ./source
+          mkdocs build -d ../docs
+          echo "Сайт собран в папке ./docs"
+          ls -la ./docs
+
+      - name: publish-to-release-branch
+        run: |
+          git checkout -b release
+          git add ./docs
+          git status
+          git commit -m "feat: автоматическое обновление сайта"
+          git push origin release -f
