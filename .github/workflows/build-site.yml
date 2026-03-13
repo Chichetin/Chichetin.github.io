@@ -1,23 +1,22 @@
-name: build-site
+name: Deploy MkDocs to Pages
 
 on:
   push:
     branches:
       - main
 
+# Даем права на деплой в GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  build-and-publish-site:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    # Даем права на запись, чтобы пушить в ветку release
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Получаем всю историю, чтобы переключение веток работало корректно
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,32 +27,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Если mkdocs не в requirements.txt, раскомментируйте строку ниже:
+          # pip install mkdocs-material
 
-      - name: Build MkDocs site
+      - name: Build site
         run: |
           cd ./source
-          echo "Начало сборки сайта"
-          # Убедитесь, что mkdocs установлен (через requirements.txt или добавьте pip install mkdocs)
-          mkdocs build -d ../docs
-          echo "Сайт собран в папке ./docs"
-          ls -la ../docs
+          # Собираем сайт в папку ../site (на уровень выше)
+          mkdocs build -d ../site
 
-      - name: Publish to release branch
-        run: |
-          # Настройка Git (обязательно для GitHub Actions)
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Загружаем содержимое собранной папки
+          path: ./site
 
-          # Создаем ветку release или переключаемся на нее
-          git checkout -b release || git checkout release
-
-          # Добавляем только собранную папку docs
-          git add docs/
-
-          # Проверяем, есть ли изменения, чтобы не упасть с ошибкой при пустом коммите
-          if git diff --staged --quiet; then
-            echo "Нет изменений для коммита"
-          else
-            git commit -m "feat: автоматическое обновление сайта"
-            git push origin release --force
-          fi
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
