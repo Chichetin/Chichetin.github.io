@@ -38,6 +38,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Путь к собранному статичному сайту
-          publish_dir: ./source/site
+          publish_dir: ./site
           # Целевая ветка
           publish_branch: release
