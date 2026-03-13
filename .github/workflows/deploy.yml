@@ -24,13 +24,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install mkdocs mkdocs-material
+          #TODO: Поменять на подхват из requirements
           # Если вы используете плагины, добавьте их установку здесь, например:
           # pip install mkdocs-minify-plugin
 
       - name: Build MkDocs
         # Указываем путь к конфигурации.
         # По умолчанию билд создаст папку 'site' внутри директории 'source'
-        run: mkdocs build -f source/mkdocs.yml
+        run: mkdocs build -f source/mkdocs.yml -d ../site
 
       - name: Deploy to release branch
         uses: peaceiris/actions-gh-pages@v4
