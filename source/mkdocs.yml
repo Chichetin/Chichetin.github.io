@@ -8,6 +8,7 @@ nav:
     - Главная: index.md
     - Об авторе: about.md
     - Мой гитхаб (переход): https://github.com/Chichetin/PYLabs/tree/main
+    - Мой SourceCraft (переход): https://sourcecraft.dev/delox2/repos
     - Лабораторные прошлого полугодия:
         - Сравнения скорости факториалов: labs/old/lab1.md
         - Генератор бинарных деревьев: labs/old/lab2.md
