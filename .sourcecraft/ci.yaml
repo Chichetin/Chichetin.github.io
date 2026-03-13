@@ -19,7 +19,7 @@ workflows:
               - echo "Начало сборки сайта"
               - mkdocs build -d ../docs
               - echo "Сайт собран в папке ./docs"
-              - ls -la ./docs
+              - ls -la ../docs 
 
           - name: publish-to-release-branch
             script:
